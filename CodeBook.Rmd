@@ -1,0 +1,44 @@
+---
+title: "CodeBook"
+author: "Sean Hegarty"
+date: "December 21, 2014"
+output: html_document
+---
+#The script `run_analysis.R` performs 5 steps:
+1. All provided data is read into `R` is merged using the rbind() function. By similar, we address those files having the same number of columns and referring to the same entities.
+2. Mean and Standard Deviation measurements are extracted from the dataset. The column names are then  taken from features.txt and adjusted to be more descriptive.
+3. Activity data is addressed with values 1:6, we take the activity names and IDs from activity_labels.txt and they are substituted in the dataset.
+4. Columns with vague column names are corrected.
+5. A new dataset is generated with averages coordinated with each of 30 subjects and 6 activities. The ouput dataset is 180 observations for each of the 68 variables and is exported to the Tidy_data.txt file.
+
+#Variables Information
+*For each observation in the dataset, these variables are observed:
+
+-Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
+-Triaxial Angular velocity from the gyroscope.
+-A 561-feature vector with time and frequency domain variables.
+-Its activity label.
+-An identifier of the subject who carried out the experiment.
+
+*Set the source directory for the files `setwd("UCI HAR Dataset")`, read the text files into `R`
+
+subject_train.txt
+x_train.txt
+y_train.txt
+subject_test.txt
+x_test.txt
+y_test.txt
+
+*Assign column names and merge to create one data set.
+
+-`testData`, `testLabel`, `testSubject`, `trainData` `trainLabel` `trainSubject` contain the data from the downloaded files.
+
+-`Data`, `DataLabel` and `Subject` merge the previous datasets to further analysis.
+
+-`features` contains the correct names for the `Data`, which are applied to the column names stored in `features`, a numeric vector used to extract the desired data.
+
+-A similar approach is taken with `activity` names through the `activity` variable.
+
+-`CleanData` merges `DataLabel, Data and DataSubject` into a large dataset.
+
+-Finally, Tidy_data contains the averages stored in a .txt file using the plyr() library, `plyr 1.8.1`. This is used to attain the averages in a single line of code compared to a clustered for loop. ease the development.
